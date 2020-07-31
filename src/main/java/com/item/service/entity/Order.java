@@ -7,11 +7,11 @@ import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "Order")
+@Table(name = "order_table")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private long id;
     private String item;
     private BigDecimal price;
     private Integer quantity;

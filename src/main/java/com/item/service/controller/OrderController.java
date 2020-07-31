@@ -3,6 +3,7 @@ package com.item.service.controller;
 import com.item.service.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,8 @@ public class OrderController {
     }
 
     @PostMapping("/create")
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity create(@RequestBody OrderDTO orderDTO) {
 
         return null;
