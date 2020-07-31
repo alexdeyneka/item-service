@@ -3,17 +3,16 @@ package com.item.service.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "order_table")
-public class Order {
+@Table(name = "item_table")
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String itemName;
-    private BigDecimal price;
-    private Integer quantity;
+    private String name;
+    private double price;
+    private int quantity;
 
 }

@@ -8,10 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,23 +18,15 @@ public class OrderService {
     private final OrderRepo orderRepo;
 
     public List<OrderDTO> findAll() {
-        List<Order> list = orderRepo.findAll();
-        List<OrderDTO> result = new ArrayList<>();
-        list.forEach(n -> result.add(OrderMapper.INSTANCE.productToProductDTO(n)));
-        return result;
+        List<Order> entityList = orderRepo.findAll();
+        List<OrderDTO> dtoList = new ArrayList<>();
+        entityList.forEach(element -> dtoList.add(OrderMapper.INSTANCE.orderToOrderDTO(element)));
+        return dtoList;
     }
 
-    public Optional<Order> findById(Integer id) {
-
-        return orderRepo.findById(id);
+    public OrderDTO create(OrderDTO orderDTO) {
+        Order savedOrder = orderRepo.save(OrderMapper.INSTANCE.orderDTOToOrder(orderDTO));
+        return OrderMapper.INSTANCE.orderToOrderDTO(savedOrder);
     }
 
-    public Order create(Order order) {
-
-        return orderRepo.save(order);
-    }
-
-    public void delete(LocalDate localDate) {
-
-    }
 }
