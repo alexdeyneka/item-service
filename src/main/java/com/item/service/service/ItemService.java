@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class ItemService {
     private final ItemRepo itemRepo;
 
+    // gets all items from the db
     public List<ItemDTO> findAll() {
         List<Item> entityList = itemRepo.findAll();
         List<ItemDTO> dtoList = new ArrayList<>();
@@ -27,6 +28,7 @@ public class ItemService {
         return dtoList;
     }
 
+    // finds the item by the item's name at the lowest price
     public Optional<ItemDTO> findByPrice(String itemName, int quantity) {
         List<ItemDTO> itemDTOList;
         itemDTOList = findAll().stream()

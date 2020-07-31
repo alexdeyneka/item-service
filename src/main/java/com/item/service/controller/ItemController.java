@@ -1,6 +1,7 @@
 package com.item.service.controller;
 
 import com.item.service.dto.ItemDTO;
+import com.item.service.dto.OrderDTO;
 import com.item.service.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,10 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    // handles get requests in order to get all items from the db
     @GetMapping("/find")
-    public ResponseEntity<ItemDTO> getTheLowestPriceItem(@RequestParam String itemName, int quantity) {
-        Optional<ItemDTO> optionalItemDTO = itemService.findByPrice(itemName, quantity);
+    public ResponseEntity<ItemDTO> getTheLowestPriceItem(@RequestParam OrderDTO orderDTO) {
+        Optional<ItemDTO> optionalItemDTO = itemService.findByPrice(orderDTO.getItemName(), orderDTO.getQuantity());
         ResponseEntity<ItemDTO> body = null;
         if (optionalItemDTO.isPresent()) {
             body = ResponseEntity.ok().body(optionalItemDTO.get());
