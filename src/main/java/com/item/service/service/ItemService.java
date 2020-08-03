@@ -38,6 +38,7 @@ public class ItemService {
                 .collect(Collectors.toList());
         if (itemDTOList.isEmpty()) {
             log.warn("The item with name " + itemName + " is out of stock");
+            return null;
         } else {
             if (itemDTOList.get(0).getQuantity() < quantity) {
                 log.warn("Only " + itemDTOList.get(0).getQuantity() + " is available");

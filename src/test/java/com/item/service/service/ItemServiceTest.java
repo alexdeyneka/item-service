@@ -12,10 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DataJpaTest
@@ -40,10 +41,21 @@ class ItemServiceTest {
     }
 
     @Test
-    void findByPrice() {
+    void findByPriceItemExistsCaseTest() {
         when(itemRepo.findAll()).thenReturn(itemList);
-        Optional<ItemDTO> optionalItem = itemService.findByPrice(itemList.get(0).getName(), itemList.get(0).getQuantity());
-        assertEquals(itemList.get(0), ItemMapper.INSTANCE.itemDTOToItem(optionalItem.get()));
+        Optional<ItemDTO> optionalItem = itemService.findByPrice("oil", 50);
+        assertEquals(itemList.get(3), ItemMapper.INSTANCE.itemDTOToItem(optionalItem.get()));
+        assertNotEquals(itemList.get(1), ItemMapper.INSTANCE.itemDTOToItem(optionalItem.get()));
+        verify(itemRepo, times(1)).findAll();
+        verify(itemRepo, only()).findAll();
+    }
+
+    @Test
+    void findByPriceNoItemCaseTest() {
+        List<Item> emptyList = new ArrayList<>();
+        when(itemRepo.findAll()).thenReturn(emptyList);
+        Optional<ItemDTO> optionalItem = itemService.findByPrice("candy", 5);
+        assertNull(optionalItem);
         verify(itemRepo, times(1)).findAll();
         verify(itemRepo, only()).findAll();
     }

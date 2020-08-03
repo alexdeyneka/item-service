@@ -29,7 +29,7 @@ public class OrderController {
     }
 
     // handles get requests in order to get all active orders from the storage
-    @GetMapping("/orders")
+    @GetMapping("/active")
     public ResponseEntity<List<OrderDTO>> displayActiveOrders() {
         List<OrderDTO> activeOrdersList = orderService.displayActiveOrders();
         if (activeOrdersList.isEmpty()) {
